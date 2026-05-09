@@ -1,0 +1,55 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <set>
+
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n;
+        cin >> n;
+
+        vector<int> chocolates(n);
+
+        for (int i = 0; i < n; i++) {
+            cin >> chocolates[i];
+        }
+
+        sort(chocolates.rbegin(), chocolates.rend());
+
+        long long alex = 0, bob = 0;
+
+        set<int> alexUsed, bobUsed;
+
+        bool alexTurn = true;
+
+        for (int i = 0; i < n; i++) {
+
+            if (alexTurn) {
+                if (alexUsed.find(chocolates[i]) == alexUsed.end()) {
+                    alex += chocolates[i];
+                    alexUsed.insert(chocolates[i]);
+                }
+            }
+            else {
+                if (bobUsed.find(chocolates[i]) == bobUsed.end()) {
+                    bob += chocolates[i];
+                    bobUsed.insert(chocolates[i]);
+                }
+            }
+
+            alexTurn = !alexTurn;
+        }
+
+        if (alex > bob)
+            cout << "Alex" << endl;
+        else
+            cout << "Bob" << endl;
+    }
+
+    return 0;
+}
